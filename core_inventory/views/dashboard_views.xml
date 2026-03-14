@@ -1,49 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
+
     <!-- Dashboard Form View -->
     <record id="view_core_dashboard_form" model="ir.ui.view">
         <field name="name">core.dashboard.form</field>
         <field name="model">core.dashboard</field>
         <field name="arch" type="xml">
-            <form string="Inventory Dashboard" create="0" delete="0">
+            <form string="Inventory Dashboard" create="0" delete="0" edit="0">
                 <sheet>
-                    <div class="o_dashboards">
-                        <div class="row">
-                            <div class="col-12 col-md-4 mb-3">
-                                <div class="card shadow-sm border-0 bg-primary text-white p-3 text-center rounded-3">
-                                    <h3 class="mb-0"><field name="total_products"/></h3>
-                                    <p class="mb-0">Unique Products in Stock</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4 mb-3">
-                                <div class="card shadow-sm border-0 bg-danger text-white p-3 text-center rounded-3">
-                                    <h3 class="mb-0"><field name="low_stock_items"/></h3>
-                                    <p class="mb-0">Low / Out of Stock Items</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-4 mb-3">
-                                <div class="card shadow-sm border-0 bg-success text-white p-3 text-center rounded-3">
-                                    <h3 class="mb-0"><field name="pending_receipts"/></h3>
-                                    <p class="mb-0">Pending Receipts</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-12 col-md-6 mb-3">
-                                <div class="card shadow-sm border-0 bg-warning text-dark p-3 text-center rounded-3">
-                                    <h3 class="mb-0"><field name="pending_deliveries"/></h3>
-                                    <p class="mb-0">Pending Deliveries</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 mb-3">
-                                <div class="card shadow-sm border-0 bg-info text-white p-3 text-center rounded-3">
-                                    <h3 class="mb-0"><field name="internal_transfers"/></h3>
-                                    <p class="mb-0">Internal Transfers Scheduled</p>
-                                </div>
+
+                    <!-- ── Page Header ── -->
+                    <div class="ci-dashboard-header">
+                        <div class="ci-dashboard-header-inner">
+                            <span class="ci-header-icon">🏭</span>
+                            <div>
+                                <h2 class="ci-header-title">CoreInventory Dashboard</h2>
+                                <p class="ci-header-subtitle">Real-time snapshot of your warehouse operations</p>
                             </div>
                         </div>
                     </div>
+
+                    <!-- ── KPI Grid ── -->
+                    <div class="ci-dashboard-wrapper">
+
+                        <!-- Row 1 | 3 tiles -->
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-4">
+                                <div class="ci-kpi-tile ci-tile-blue">
+                                    <div class="ci-kpi-icon">📦</div>
+                                    <div class="ci-kpi-value"><field name="total_products"/></div>
+                                    <div class="ci-kpi-label">Products in Stock</div>
+                                    <button name="action_view_all_products" type="object"
+                                            class="ci-kpi-link">View Products →</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <div class="ci-kpi-tile ci-tile-red">
+                                    <div class="ci-kpi-icon">⚠️</div>
+                                    <div class="ci-kpi-value"><field name="low_stock_items"/></div>
+                                    <div class="ci-kpi-label">Low / Out of Stock</div>
+                                    <button name="action_view_low_stock" type="object"
+                                            class="ci-kpi-link">View Alerts →</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <div class="ci-kpi-tile ci-tile-green">
+                                    <div class="ci-kpi-icon">📥</div>
+                                    <div class="ci-kpi-value"><field name="pending_receipts"/></div>
+                                    <div class="ci-kpi-label">Pending Receipts</div>
+                                    <button name="action_view_receipts" type="object"
+                                            class="ci-kpi-link">View Receipts →</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2 | 2 tiles -->
+                        <div class="row g-3 mt-3">
+
+                            <div class="col-12 col-md-6">
+                                <div class="ci-kpi-tile ci-tile-amber">
+                                    <div class="ci-kpi-icon">📤</div>
+                                    <div class="ci-kpi-value"><field name="pending_deliveries"/></div>
+                                    <div class="ci-kpi-label">Pending Deliveries</div>
+                                    <button name="action_view_deliveries" type="object"
+                                            class="ci-kpi-link">View Deliveries →</button>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="ci-kpi-tile ci-tile-teal">
+                                    <div class="ci-kpi-icon">🔄</div>
+                                    <div class="ci-kpi-value"><field name="internal_transfers"/></div>
+                                    <div class="ci-kpi-label">Internal Transfers</div>
+                                    <button name="action_view_transfers" type="object"
+                                            class="ci-kpi-link">View Transfers →</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div><!-- /.ci-dashboard-wrapper -->
+
                 </sheet>
             </form>
         </field>
