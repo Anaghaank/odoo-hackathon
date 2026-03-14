@@ -6,14 +6,14 @@
         <field name="name">core.picking.tree</field>
         <field name="model">core.picking</field>
         <field name="arch" type="xml">
-            <tree decoration-info="state == 'draft'" decoration-warning="state == 'waiting'" decoration-success="state == 'done'" decoration-danger="state == 'cancel'">
+            <list decoration-info="state == 'draft'" decoration-warning="state == 'waiting'" decoration-success="state == 'done'" decoration-danger="state == 'cancel'">
                 <field name="name"/>
                 <field name="partner_id" optional="show"/>
                 <field name="location_id" optional="show"/>
                 <field name="location_dest_id" optional="show"/>
                 <field name="scheduled_date"/>
                 <field name="state" widget="badge"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -24,8 +24,8 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_confirm" type="object" string="Mark as Ready" states="draft,waiting" class="oe_highlight"/>
-                    <button name="action_validate" type="object" string="Validate" states="ready" class="oe_highlight"/>
+                    <button name="action_confirm" type="object" string="Mark as Ready" invisible="state not in ['draft', 'waiting']" class="oe_highlight"/>
+                    <button name="action_validate" type="object" string="Validate" invisible="state != 'ready'" class="oe_highlight"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,waiting,ready,done"/>
                 </header>
                 <sheet>
@@ -49,11 +49,11 @@
                     <notebook>
                         <page string="Operations">
                             <field name="line_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="qty_demand"/>
                                     <field name="qty_done"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -66,7 +66,7 @@
     <record id="action_core_receipts" model="ir.actions.act_window">
         <field name="name">Receipts</field>
         <field name="res_model">core.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('picking_type', '=', 'receipt')]</field>
         <field name="context">{'default_picking_type': 'receipt'}</field>
     </record>
@@ -77,7 +77,7 @@
     <record id="action_core_delivery" model="ir.actions.act_window">
         <field name="name">Delivery Orders</field>
         <field name="res_model">core.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('picking_type', '=', 'delivery')]</field>
         <field name="context">{'default_picking_type': 'delivery'}</field>
     </record>
@@ -88,7 +88,7 @@
     <record id="action_core_internal" model="ir.actions.act_window">
         <field name="name">Internal Transfers</field>
         <field name="res_model">core.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('picking_type', '=', 'internal')]</field>
         <field name="context">{'default_picking_type': 'internal'}</field>
     </record>
@@ -99,7 +99,7 @@
     <record id="action_core_adjustment" model="ir.actions.act_window">
         <field name="name">Stock Adjustments</field>
         <field name="res_model">core.picking</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('picking_type', '=', 'adjustment')]</field>
         <field name="context">{'default_picking_type': 'adjustment'}</field>
     </record>
@@ -111,7 +111,7 @@
         <field name="name">core.stock.move.tree</field>
         <field name="model">core.stock.move</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" create="false" edit="false" delete="false">
+            <list editable="bottom" create="false" edit="false" delete="false">
                 <field name="date"/>
                 <field name="name"/>
                 <field name="product_id"/>
@@ -119,14 +119,14 @@
                 <field name="location_dest_id"/>
                 <field name="qty"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_core_move_history" model="ir.actions.act_window">
         <field name="name">Move History / Stock Ledger</field>
         <field name="res_model">core.stock.move</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="domain">[('state', '=', 'done')]</field>
     </record>
 

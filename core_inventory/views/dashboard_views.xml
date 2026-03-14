@@ -6,28 +6,45 @@
         <field name="name">core.dashboard.form</field>
         <field name="model">core.dashboard</field>
         <field name="arch" type="xml">
-            <form>
-                <html>
-                    <div class="row">
-                        <div class="col-md-12 text-center" style="margin-bottom: 20px;">
-                            <h2>Inventory Operations Snapshot</h2>
+            <form string="Inventory Dashboard" create="0" delete="0">
+                <sheet>
+                    <div class="o_dashboards">
+                        <div class="row">
+                            <div class="col-12 col-md-4 mb-3">
+                                <div class="card shadow-sm border-0 bg-primary text-white p-3 text-center rounded-3">
+                                    <h3 class="mb-0"><field name="total_products"/></h3>
+                                    <p class="mb-0">Unique Products in Stock</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <div class="card shadow-sm border-0 bg-danger text-white p-3 text-center rounded-3">
+                                    <h3 class="mb-0"><field name="low_stock_items"/></h3>
+                                    <p class="mb-0">Low / Out of Stock Items</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <div class="card shadow-sm border-0 bg-success text-white p-3 text-center rounded-3">
+                                    <h3 class="mb-0"><field name="pending_receipts"/></h3>
+                                    <p class="mb-0">Pending Receipts</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="card shadow-sm border-0 bg-warning text-dark p-3 text-center rounded-3">
+                                    <h3 class="mb-0"><field name="pending_deliveries"/></h3>
+                                    <p class="mb-0">Pending Deliveries</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 mb-3">
+                                <div class="card shadow-sm border-0 bg-info text-white p-3 text-center rounded-3">
+                                    <h3 class="mb-0"><field name="internal_transfers"/></h3>
+                                    <p class="mb-0">Internal Transfers Scheduled</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </html>
-                <group>
-                    <group>
-                        <field name="total_products" readonly="1"/>
-                        <field name="low_stock_items" readonly="1"/>
-                    </group>
-                    <group>
-                        <field name="pending_receipts" readonly="1"/>
-                        <field name="pending_deliveries" readonly="1"/>
-                        <field name="internal_transfers" readonly="1"/>
-                    </group>
-                </group>
-                <footer>
-                    <button class="btn btn-primary" special="cancel" string="Close"/>
-                </footer>
+                </sheet>
             </form>
         </field>
     </record>

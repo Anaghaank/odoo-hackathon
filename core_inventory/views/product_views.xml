@@ -6,10 +6,10 @@
         <field name="name">core.product.category.tree</field>
         <field name="model">core.product.category</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="parent_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -31,7 +31,7 @@
     <record id="action_core_product_category" model="ir.actions.act_window">
         <field name="name">Product Categories</field>
         <field name="res_model">core.product.category</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_core_product_category" name="Categories" parent="menu_core_inventory_products" action="action_core_product_category" sequence="20"/>
@@ -41,15 +41,46 @@
         <field name="name">core.product.tree</field>
         <field name="model">core.product</field>
         <field name="arch" type="xml">
-            <tree>
+            <list decoration-danger="is_low_stock">
                 <field name="name"/>
                 <field name="sku"/>
                 <field name="category_id"/>
-                <field name="stock_qty"/>
-                <field name="uom_char"/>
-            </tree>
+                <field name="stock_qty" string="Stock"/>
+                <field name="uom_char" string="UoM"/>
+                <field name="is_low_stock" column_invisible="True"/>
+            </list>
         </field>
     </record>
+
+    <!-- Product Kanban -->
+    <record id="view_core_product_kanban" model="ir.ui.view">
+        <field name="name">core.product.kanban</field>
+        <field name="model">core.product</field>
+        <field name="arch" type="xml">
+            <kanban cards_clickable="1">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="stock_qty"/>
+                <field name="is_low_stock"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex flex-column p-2">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <strong class="o_kanban_record_title text-primary"><field name="name"/></strong>
+                                <span t-if="record.is_low_stock.raw_value" class="badge rounded-pill bg-danger text-white">Low Stock</span>
+                            </div>
+                            <div class="d-flex align-items-end justify-content-between">
+                                <div class="text-muted small">
+                                    SKU: <field name="sku"/>
+                                </div>
+                                <div class="h4 mb-0 fw-bold">
+                                    <field name="stock_qty"/> <small class="text-muted"><field name="uom_char"/></small>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
 
     <record id="view_core_product_form" model="ir.ui.view">
         <field name="name">core.product.form</field>
@@ -57,9 +88,13 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_stock_locations" type="object" class="oe_stat_button" icon="fa-building-o" string="Stock per Location"/>
+                    </div>
                     <div class="oe_title">
+                        <label for="name" string="Product Name"/>
                         <h1>
-                            <field name="name" placeholder="Product Name"/>
+                            <field name="name" placeholder="e.g. Steel Rods"/>
                         </h1>
                     </div>
                     <group>
@@ -80,9 +115,31 @@
     <record id="action_core_product" model="ir.actions.act_window">
         <field name="name">Products</field>
         <field name="res_model">core.product</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
     </record>
 
     <menuitem id="menu_core_product" name="Products" parent="menu_core_inventory_products" action="action_core_product" sequence="10"/>
+
+    <!-- Reordering Rules -->
+    <record id="view_core_reordering_rule_tree" model="ir.ui.view">
+        <field name="name">core.reordering.rule.list</field>
+        <field name="model">core.reordering.rule</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="min_qty"/>
+                <field name="max_qty"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_core_reordering_rule" model="ir.actions.act_window">
+        <field name="name">Reordering Rules</field>
+        <field name="res_model">core.reordering.rule</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem id="menu_core_reordering_rule" name="Reordering Rules" parent="menu_core_inventory_products" action="action_core_reordering_rule" sequence="30"/>
 
 </odoo>
