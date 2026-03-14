@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
+
     <!-- Action to open the dashboard form -->
     <record id="action_core_dashboard" model="ir.actions.server">
         <field name="name">Inventory Dashboard</field>
@@ -11,22 +11,42 @@
         </field>
     </record>
 
-    <!-- Top Menu -->
-    <menuitem id="menu_core_inventory_root" name="CoreInventory" web_icon="core_inventory,static/description/icon.png" sequence="10"/>
+    <!-- Top Menu — clicking the app tile in Home goes straight to Dashboard -->
+    <menuitem id="menu_core_inventory_root"
+              name="CoreInventory"
+              web_icon="core_inventory,static/description/icon.svg"
+              action="action_core_dashboard"
+              sequence="10"/>
 
-    <!-- Dashboard Menu -->
-    <menuitem id="menu_core_inventory_dashboard" name="Dashboard" parent="menu_core_inventory_root" action="action_core_dashboard" sequence="10"/>
+    <!-- Dashboard submenu -->
+    <menuitem id="menu_core_inventory_dashboard"
+              name="Dashboard"
+              parent="menu_core_inventory_root"
+              action="action_core_dashboard"
+              sequence="10"/>
 
     <!-- Products Menu -->
-    <menuitem id="menu_core_inventory_products" name="Products" parent="menu_core_inventory_root" sequence="20"/>
+    <menuitem id="menu_core_inventory_products"
+              name="Products"
+              parent="menu_core_inventory_root"
+              sequence="20"/>
 
     <!-- Operations Menu -->
-    <menuitem id="menu_core_inventory_operations" name="Operations" parent="menu_core_inventory_root" sequence="30"/>
+    <menuitem id="menu_core_inventory_operations"
+              name="Operations"
+              parent="menu_core_inventory_root"
+              sequence="30"/>
 
     <!-- Settings Menu -->
-    <menuitem id="menu_core_inventory_settings" name="Settings" parent="menu_core_inventory_root" sequence="40"/>
+    <menuitem id="menu_core_inventory_settings"
+              name="Settings"
+              parent="menu_core_inventory_root"
+              sequence="40"/>
 
     <!-- Warehouse Submenu under Settings -->
-    <menuitem id="menu_core_warehouse" name="Warehouses" parent="menu_core_inventory_settings" sequence="10"/>
+    <menuitem id="menu_core_warehouse"
+              name="Warehouses"
+              parent="menu_core_inventory_settings"
+              sequence="10"/>
 
 </odoo>
