@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import TwoFactorPage from './pages/TwoFactorPage';
 import DashboardLayout from './layouts/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import ProductsPage from './pages/dashboard/ProductsPage';
@@ -13,11 +15,12 @@ const Placeholder = ({ title }: { title: string }) => (
 );
 
 function App() {
-  console.log('App component rendering...');
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/2fa" element={<TwoFactorPage />} />
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardHome />} />
