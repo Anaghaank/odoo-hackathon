@@ -13,8 +13,8 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ logoUrl }) => {
 
       {/* Logo */}
       <div className="flex items-center gap-2 mb-16 z-10">
-        <div className="bg-blue-600 p-2 rounded-lg">
-          <img src={logoUrl} alt="FlowStock Logo" className="w-8 h-8 invert brightness-0" />
+        <div className="bg-blue-600 rounded-lg">
+          <img src={logoUrl} alt="FlowStock Logo" className="w-8 h-8 " />
         </div>
         <span className="text-2xl font-bold text-blue-900 font-display">FlowStock</span>
       </div>
@@ -24,13 +24,13 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ logoUrl }) => {
         <div className="inline-block px-4 py-1 mb-8 text-xs font-bold tracking-widest text-blue-700 uppercase bg-blue-100 rounded-full">
           • LIVE TRACKING
         </div>
-        
+
         <h1 className="text-6xl font-bold leading-tight text-blue-900 mb-6 font-display">
-          Smarter <br /> 
+          Smarter <br />
           inventory, <br />
           <span className="text-blue-600">zero <br /> guesswork.</span>
         </h1>
-        
+
         <p className="text-lg text-slate-500 max-w-md">
           Real-time stock levels, automated reorders, and multi-warehouse visibility — all in one place.
         </p>
@@ -57,7 +57,7 @@ const AuthSidebar: React.FC<AuthSidebarProps> = ({ logoUrl }) => {
         <div className="flex -space-x-3">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-blue-${i * 100 + 400} flex items-center justify-center text-xs text-white font-bold`}>
-              {['AK', 'MJ', 'SC', 'RP'][i-1]}
+              {['AK', 'MJ', 'SC', 'RP'][i - 1]}
             </div>
           ))}
         </div>
