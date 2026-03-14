@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Categories -->
+    <record id="view_core_product_category_tree" model="ir.ui.view">
+        <field name="name">core.product.category.tree</field>
+        <field name="model">core.product.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_core_product_category_form" model="ir.ui.view">
+        <field name="name">core.product.category.form</field>
+        <field name="model">core.product.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_core_product_category" model="ir.actions.act_window">
+        <field name="name">Product Categories</field>
+        <field name="res_model">core.product.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_core_product_category" name="Categories" parent="menu_core_inventory_products" action="action_core_product_category" sequence="20"/>
+
+    <!-- Products -->
+    <record id="view_core_product_tree" model="ir.ui.view">
+        <field name="name">core.product.tree</field>
+        <field name="model">core.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="sku"/>
+                <field name="category_id"/>
+                <field name="stock_qty"/>
+                <field name="uom_char"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_core_product_form" model="ir.ui.view">
+        <field name="name">core.product.form</field>
+        <field name="model">core.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Product Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sku"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="stock_qty"/>
+                            <field name="uom_char"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_core_product" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">core.product</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_core_product" name="Products" parent="menu_core_inventory_products" action="action_core_product" sequence="10"/>
+
+</odoo>

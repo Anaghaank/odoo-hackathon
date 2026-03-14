@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Dashboard Form View -->
+    <record id="view_core_dashboard_form" model="ir.ui.view">
+        <field name="name">core.dashboard.form</field>
+        <field name="model">core.dashboard</field>
+        <field name="arch" type="xml">
+            <form>
+                <html>
+                    <div class="row">
+                        <div class="col-md-12 text-center" style="margin-bottom: 20px;">
+                            <h2>Inventory Operations Snapshot</h2>
+                        </div>
+                    </div>
+                </html>
+                <group>
+                    <group>
+                        <field name="total_products" readonly="1"/>
+                        <field name="low_stock_items" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="pending_receipts" readonly="1"/>
+                        <field name="pending_deliveries" readonly="1"/>
+                        <field name="internal_transfers" readonly="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button class="btn btn-primary" special="cancel" string="Close"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
