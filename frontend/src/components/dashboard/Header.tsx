@@ -21,7 +21,7 @@ const Header: React.FC = () => {
   const initials = user.name ? user.name.split(' ').map((n: string) => n[0]).join('').toUpperCase() : 'SA';
 
   return (
-    <header className="h-24 bg-transparent flex items-center justify-between px-10 sticky top-0 z-40 transition-all duration-300">
+    <header className="h-20 bg-transparent flex items-center justify-between px-[2.5rem] sticky top-0 z-40 border-b border-white/5 backdrop-blur-md bg-[#020617]/60">
         {/* Search Bar - High End Dark */}
         <div className="flex-1 max-w-xl">
             <div className="relative group">
