@@ -42,7 +42,7 @@ const Sidebar: React.FC = () => {
           <div className="w-9 h-9 rounded-xl bg-lime-400 flex items-center justify-center shadow-lg shrink-0">
             <Box className="w-5 h-5 text-slate-900" strokeWidth={2.5} />
           </div>
-          <span className="text-xl font-black text-white tracking-tight">Yati Corp</span>
+          <span className="text-xl font-black text-white tracking-tight">InventEdge</span>
         </div>
       </div>
 
