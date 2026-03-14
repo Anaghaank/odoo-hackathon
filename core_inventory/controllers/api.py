@@ -68,3 +68,68 @@ class CoreInventoryApi(http.Controller):
                 'date': str(p.scheduled_date) if p.scheduled_date else '',
             })
         return self._json_response(picking_list)
+    @http.route('/api/auth/signup', type='http', auth='public', methods=['POST', 'OPTIONS'], csrf=False, cors='*')
+    def signup_organisation(self, **kwargs):
+        # Handle CORS Preflight
+        if request.httprequest.method == 'OPTIONS':
+            return request.make_response('', headers=[
+                ('Access-Control-Allow-Origin', '*'),
+                ('Access-Control-Allow-Methods', 'POST, OPTIONS'),
+                ('Access-Control-Allow-Headers', 'Content-Type'),
+            ])
+
+        try:
+            print(">>> Received Signup Request")
+            data = json.loads(request.httprequest.data)
+            input_data = data.get('params', data)
+            
+            name = input_data.get('name')
+            organisation = input_data.get('organisation')
+            email = input_data.get('email')
+            phone = input_data.get('phone')
+
+            print(f">>> Name: {name}, Org: {organisation}, Email: {email}")
+
+            if not all([name, organisation, email]):
+                return self._json_response({'error': 'Missing required fields'})
+
+            # Check if email already exists in any partner record
+            existing_partner = request.env['res.partner'].sudo().search([('email', '=', email)], limit=1)
+            if existing_partner:
+                return self._json_response({'error': 'This email is already registered in our system.'})
+
+            # Create the organisation (company) record
+            # In Odoo, 'company_type' is the key field for the Contacts module filter
+            company = request.env['res.partner'].sudo().create({
+                'name': organisation,
+                'is_company': True,
+                'company_type': 'company',
+                'email': email,
+                'phone': phone,
+                'street': 'Automatic Signup',
+            })
+
+            # Create the contact person linked to the company
+            contact = request.env['res.partner'].sudo().create({
+                'name': name,
+                'parent_id': company.id,
+                'email': email,
+                'phone': phone,
+                'is_company': False,
+                'company_type': 'person',
+                'function': 'Organization Admin',
+            })
+
+            result = {
+                'status': 'success',
+                'contact_id': contact.id,
+                'company_id': company.id,
+                'message': f'Organisation "{organisation}" created successfully!'
+            }
+            print(f">>> Created Company ID: {company.id}")
+            
+            return self._json_response({'result': result})
+            
+        except Exception as e:
+            print(f">>> Signup Error Error: {str(e)}")
+            return self._json_response({'error': str(e)})

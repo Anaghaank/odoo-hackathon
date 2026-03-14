@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  ShoppingBag, 
-  Clock, 
-  RefreshCcw, 
-  TrendingUp, 
   ArrowUpRight, 
   ArrowDownRight,
   MoreVertical,
   Download,
-  Printer,
   Plus,
   AlertTriangle,
   Package,
