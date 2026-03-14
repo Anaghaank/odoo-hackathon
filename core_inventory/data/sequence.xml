@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Sequence for Receipts -->
+        <record id="seq_core_receipt" model="ir.sequence">
+            <field name="name">Core Receipt Sequence</field>
+            <field name="code">core.receipt</field>
+            <field name="prefix">WH/IN/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Sequence for Delivery -->
+        <record id="seq_core_delivery" model="ir.sequence">
+            <field name="name">Core Delivery Sequence</field>
+            <field name="code">core.delivery</field>
+            <field name="prefix">WH/OUT/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Sequence for Internal Transfers -->
+        <record id="seq_core_internal" model="ir.sequence">
+            <field name="name">Core Internal Sequence</field>
+            <field name="code">core.internal</field>
+            <field name="prefix">WH/INT/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Sequence for Adjustments -->
+        <record id="seq_core_adjustment" model="ir.sequence">
+            <field name="name">Core Adjustment Sequence</field>
+            <field name="code">core.adjustment</field>
+            <field name="prefix">WH/ADJ/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

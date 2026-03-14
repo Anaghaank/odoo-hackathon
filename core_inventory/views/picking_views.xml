@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Picking Tree -->
+    <record id="view_core_picking_tree" model="ir.ui.view">
+        <field name="name">core.picking.tree</field>
+        <field name="model">core.picking</field>
+        <field name="arch" type="xml">
+            <list decoration-info="state == 'draft'" decoration-warning="state == 'waiting'" decoration-success="state == 'done'" decoration-danger="state == 'cancel'">
+                <field name="name"/>
+                <field name="partner_id" optional="show"/>
+                <field name="location_id" optional="show"/>
+                <field name="location_dest_id" optional="show"/>
+                <field name="scheduled_date"/>
+                <field name="state" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Picking Form -->
+    <record id="view_core_picking_form" model="ir.ui.view">
+        <field name="name">core.picking.form</field>
+        <field name="model">core.picking</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Mark as Ready" invisible="state not in ['draft', 'waiting']" class="oe_highlight"/>
+                    <button name="action_validate" type="object" string="Validate" invisible="state != 'ready'" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,ready,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="picking_type" required="1"/>
+                            <field name="warehouse_id"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_date"/>
+                            <field name="location_id"/>
+                            <field name="location_dest_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Operations">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="qty_demand"/>
+                                    <field name="qty_done"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Receipts Action -->
+    <record id="action_core_receipts" model="ir.actions.act_window">
+        <field name="name">Receipts</field>
+        <field name="res_model">core.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('picking_type', '=', 'receipt')]</field>
+        <field name="context">{'default_picking_type': 'receipt'}</field>
+    </record>
+
+    <menuitem id="menu_core_receipts" name="Receipts" parent="menu_core_inventory_operations" action="action_core_receipts" sequence="10"/>
+
+    <!-- Delivery Action -->
+    <record id="action_core_delivery" model="ir.actions.act_window">
+        <field name="name">Delivery Orders</field>
+        <field name="res_model">core.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('picking_type', '=', 'delivery')]</field>
+        <field name="context">{'default_picking_type': 'delivery'}</field>
+    </record>
+
+    <menuitem id="menu_core_delivery" name="Delivery Orders" parent="menu_core_inventory_operations" action="action_core_delivery" sequence="20"/>
+
+    <!-- Internal Transfer Action -->
+    <record id="action_core_internal" model="ir.actions.act_window">
+        <field name="name">Internal Transfers</field>
+        <field name="res_model">core.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('picking_type', '=', 'internal')]</field>
+        <field name="context">{'default_picking_type': 'internal'}</field>
+    </record>
+
+    <menuitem id="menu_core_internal" name="Internal Transfers" parent="menu_core_inventory_operations" action="action_core_internal" sequence="30"/>
+
+    <!-- Adjustments Action -->
+    <record id="action_core_adjustment" model="ir.actions.act_window">
+        <field name="name">Stock Adjustments</field>
+        <field name="res_model">core.picking</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('picking_type', '=', 'adjustment')]</field>
+        <field name="context">{'default_picking_type': 'adjustment'}</field>
+    </record>
+
+    <menuitem id="menu_core_adjustment" name="Stock Adjustments" parent="menu_core_inventory_operations" action="action_core_adjustment" sequence="40"/>
+
+    <!-- Move History Action -->
+    <record id="view_core_stock_move_tree" model="ir.ui.view">
+        <field name="name">core.stock.move.tree</field>
+        <field name="model">core.stock.move</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" create="false" edit="false" delete="false">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <field name="qty"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_core_move_history" model="ir.actions.act_window">
+        <field name="name">Move History / Stock Ledger</field>
+        <field name="res_model">core.stock.move</field>
+        <field name="view_mode">list</field>
+        <field name="domain">[('state', '=', 'done')]</field>
+    </record>
+
+    <menuitem id="menu_core_move_history" name="Move History" parent="menu_core_inventory_operations" action="action_core_move_history" sequence="50"/>
+
+</odoo>
