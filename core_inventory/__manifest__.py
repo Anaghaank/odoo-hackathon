@@ -5,7 +5,7 @@
     'description': 'Digitizes and streamlines all stock-related operations.',
     'category': 'Inventory',
     'author': 'Hackathon Team',
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web', 'stock'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',

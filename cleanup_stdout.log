@@ -1,0 +1,13 @@
+Cleaning 12 from stock.picking
+Cleaning 17 from stock.move
+Skipping stock.move due to: You can not delete product moves if the picking is done. You can only correct the done quantities.
+Cleaning 34 from stock.quant
+Skipping stock.inventory due to: 'stock.inventory'
+Cleaning 44 from product.product
+Skipping product.product due to: update or delete on table "product_product" violates RESTRICT setting of foreign key constraint "product_combo_item_product_id_fkey" on table "product_combo_item"
+DETAIL:  Key (id)=(16) is referenced from table "product_combo_item".
+
+Skipping product.template due to: current transaction is aborted, commands ignored until end of transaction block
+
+Skipping res.partner due to: current transaction is aborted, commands ignored until end of transaction block
+

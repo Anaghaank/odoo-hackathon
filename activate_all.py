@@ -1,0 +1,5 @@
+﻿env['product.template'].search([('active', '=', False)]).write({'active': True})
+env['product.product'].search([('active', '=', False)]).write({'active': True})
+p_count = env['product.product'].search_count([('active', '=', True)])
+print(f"Active Products: {p_count}")
+env.cr.commit()

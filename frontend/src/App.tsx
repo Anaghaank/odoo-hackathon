@@ -1,9 +1,13 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardLayout from './layouts/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import ProductsPage from './pages/dashboard/ProductsPage';
+import OrdersPage from './pages/dashboard/OrdersPage';
+import MoveHistoryPage from './pages/dashboard/MoveHistoryPage';
+import PeoplePage from './pages/dashboard/PeoplePage';
+import AnalyticsPage from './pages/dashboard/AnalyticsPage';
+import InvoicePage from './pages/dashboard/InvoicePage';
 
 // Placeholder components for other pages
 const Placeholder = ({ title }: { title: string }) => (
@@ -13,25 +17,40 @@ const Placeholder = ({ title }: { title: string }) => (
   </div>
 );
 
+
+// Protected Route Component (Bypassed for now)
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  // Always allow access for now as requested
+  return <>{children}</>;
+};
+
 function App() {
   console.log('App component rendering...');
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<DashboardLayout />}>
+        <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardHome />} />
           <Route path="products" element={<ProductsPage />} />
-          <Route path="orders" element={<Placeholder title="Orders" />} />
-          <Route path="people" element={<Placeholder title="People" />} />
-          <Route path="analytics" element={<Placeholder title="Analytics" />} />
-          <Route path="invoice" element={<Placeholder title="Invoice" />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="history" element={<MoveHistoryPage />} />
+          <Route path="people" element={<PeoplePage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="invoice" element={<InvoicePage />} />
           <Route path="message" element={<Placeholder title="Message" />} />
           <Route path="help" element={<Placeholder title="Help" />} />
           <Route path="setting" element={<Placeholder title="Setting" />} />
         </Route>
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,354 @@
+2026-03-14 09:57:58,270 9316 INFO ? odoo: Odoo version 18.0 
+2026-03-14 09:57:58,271 9316 INFO ? odoo: Using configuration file at C:\odoo\odoo.conf 
+2026-03-14 09:57:58,271 9316 INFO ? odoo: addons paths: ['C:\\odoo\\odoo\\addons', 'c:\\users\\shrav\\appdata\\local\\openerp s.a\\odoo\\addons\\18.0', 'c:\\enterprise-18.0', 'c:\\odoo\\addons', 'c:\\odoo-hackathon', 'c:\\odoo\\odoo\\addons'] 
+2026-03-14 09:57:58,272 9316 INFO ? odoo: database: odoo@localhost:5432 
+2026-03-14 09:57:58,530 9316 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltopdf binary at C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe 
+2026-03-14 09:57:58,576 9316 INFO ? odoo.addons.base.models.ir_actions_report: Will use the Wkhtmltoimage binary at C:\Program Files\wkhtmltopdf\bin\wkhtmltoimage.exe 
+2026-03-14 09:57:59,297 9316 INFO ? odoo.service.server: HTTP service (werkzeug) running on shravya.bbrouter:8069 
+2026-03-14 09:57:59,424 9316 INFO hackathon odoo.modules.loading: loading 1 modules... 
+2026-03-14 09:57:59,434 9316 INFO hackathon odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+2026-03-14 09:57:59,464 9316 INFO hackathon odoo.modules.loading: updating modules list 
+2026-03-14 09:57:59,470 9316 INFO hackathon odoo.addons.base.models.ir_module: ALLOW access to module.update_list on [] to user __system__ #1 via n/a 
+2026-03-14 09:58:05,141 9316 INFO hackathon odoo.addons.base.models.ir_module: ALLOW access to module.button_upgrade on ['CoreInventory'] to user __system__ #1 via n/a 
+2026-03-14 09:58:05,147 9316 INFO hackathon odoo.addons.base.models.ir_module: ALLOW access to module.update_list on ['CoreInventory'] to user __system__ #1 via n/a 
+2026-03-14 09:58:07,821 9316 INFO hackathon odoo.addons.base.models.ir_module: ALLOW access to module.button_install on [] to user __system__ #1 via n/a 
+2026-03-14 09:58:07,941 9316 INFO hackathon odoo.modules.loading: loading 55 modules... 
+2026-03-14 09:58:08,628 9316 INFO hackathon odoo.modules.loading: Loading module core_inventory (10/55) 
+2026-03-14 09:58:08,703 9316 WARNING hackathon odoo.fields: Field core.picking.state: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-03-14 09:58:08,710 9316 INFO hackathon odoo.modules.registry: module core_inventory: creating or updating database tables 
+2026-03-14 09:58:08,980 9316 WARNING hackathon py.warnings: C:\odoo\odoo\modules\registry.py:393: UserWarning: core.product: inconsistent 'compute_sudo' for computed fields stock_qty, is_low_stock. Either set 'compute_sudo' to the same value on all those fields, or use distinct compute methods for sudoed and non-sudoed fields.
+  File "C:\odoo\setup\odoo", line 8, in <module>
+    odoo.cli.main()
+  File "C:\odoo\odoo\cli\command.py", line 67, in main
+    o.run(args)
+  File "C:\odoo\odoo\cli\server.py", line 182, in run
+    main(args)
+  File "C:\odoo\odoo\cli\server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "C:\odoo\odoo\service\server.py", line 1462, in start
+    rc = server.run(preload, stop)
+  File "C:\odoo\odoo\service\server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "C:\odoo\odoo\service\server.py", line 1366, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "C:\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "C:\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "C:\odoo\odoo\modules\registry.py", line 129, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo\odoo\modules\loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "C:\odoo\odoo\modules\loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "C:\odoo\odoo\modules\loading.py", line 223, in load_module_graph
+    module._check()
+  File "C:\odoo\odoo\addons\base\models\ir_module.py", line 879, in _check
+    if not module.description_html:
+  File "C:\odoo\odoo\fields.py", line 1303, in __get__
+    self.compute_value(recs)
+  File "C:\odoo\odoo\fields.py", line 1472, in compute_value
+    fields = records.pool.field_computed[self]
+  File "C:\odoo\odoo\tools\func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "C:\odoo\odoo\modules\registry.py", line 393, in field_computed
+    warnings.warn(
+ 
+2026-03-14 09:58:08,982 9316 WARNING hackathon py.warnings: C:\odoo\odoo\modules\registry.py:408: UserWarning: core.product: inconsistent 'store' for computed fields, accessing stock_qty may recompute and update is_low_stock. Use distinct compute methods for stored and non-stored fields.
+  File "C:\odoo\setup\odoo", line 8, in <module>
+    odoo.cli.main()
+  File "C:\odoo\odoo\cli\command.py", line 67, in main
+    o.run(args)
+  File "C:\odoo\odoo\cli\server.py", line 182, in run
+    main(args)
+  File "C:\odoo\odoo\cli\server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "C:\odoo\odoo\service\server.py", line 1462, in start
+    rc = server.run(preload, stop)
+  File "C:\odoo\odoo\service\server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "C:\odoo\odoo\service\server.py", line 1366, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "C:\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "C:\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "C:\odoo\odoo\modules\registry.py", line 129, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo\odoo\modules\loading.py", line 485, in load_modules
+    processed_modules += load_marked_modules(env, graph,
+  File "C:\odoo\odoo\modules\loading.py", line 365, in load_marked_modules
+    loaded, processed = load_module_graph(
+  File "C:\odoo\odoo\modules\loading.py", line 223, in load_module_graph
+    module._check()
+  File "C:\odoo\odoo\addons\base\models\ir_module.py", line 879, in _check
+    if not module.description_html:
+  File "C:\odoo\odoo\fields.py", line 1303, in __get__
+    self.compute_value(recs)
+  File "C:\odoo\odoo\fields.py", line 1472, in compute_value
+    fields = records.pool.field_computed[self]
+  File "C:\odoo\odoo\tools\func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "C:\odoo\odoo\modules\registry.py", line 408, in field_computed
+    warnings.warn(
+ 
+2026-03-14 09:58:09,031 9316 INFO hackathon odoo.modules.loading: loading core_inventory/security/security.xml 
+2026-03-14 09:58:09,047 9316 INFO hackathon odoo.modules.loading: loading core_inventory/security/ir.model.access.csv 
+2026-03-14 09:58:09,122 9316 INFO hackathon odoo.modules.loading: loading core_inventory/data/sequence.xml 
+2026-03-14 09:58:09,130 9316 INFO hackathon odoo.modules.loading: loading core_inventory/views/dashboard_views.xml 
+2026-03-14 09:58:09,177 9316 INFO hackathon odoo.modules.loading: loading core_inventory/views/menu.xml 
+2026-03-14 09:58:09,266 9316 INFO hackathon odoo.modules.loading: loading core_inventory/views/warehouse_views.xml 
+2026-03-14 09:58:09,365 9316 INFO hackathon odoo.modules.loading: loading core_inventory/views/product_views.xml 
+2026-03-14 09:58:09,459 9316 INFO hackathon odoo.modules.loading: loading core_inventory/views/picking_views.xml 
+2026-03-14 09:58:09,597 9316 INFO hackathon odoo.modules.loading: Module core_inventory loaded in 0.97s, 477 queries (+477 other) 
+2026-03-14 09:58:10,888 9316 INFO hackathon odoo.modules.loading: 55 modules loaded in 2.95s, 477 queries (+477 extra) 
+2026-03-14 09:58:10,987 9316 WARNING hackathon odoo.fields: Field core.picking.state: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-03-14 09:58:11,051 9316 WARNING hackathon odoo.fields: Field core.picking.state: unknown parameter 'tracking', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+2026-03-14 09:58:11,371 9316 INFO hackathon odoo.modules.registry: verifying fields for every extended model 
+2026-03-14 09:58:11,571 9316 WARNING hackathon py.warnings: C:\odoo\odoo\modules\registry.py:393: UserWarning: core.product: inconsistent 'compute_sudo' for computed fields stock_qty, is_low_stock. Either set 'compute_sudo' to the same value on all those fields, or use distinct compute methods for sudoed and non-sudoed fields.
+  File "C:\odoo\setup\odoo", line 8, in <module>
+    odoo.cli.main()
+  File "C:\odoo\odoo\cli\command.py", line 67, in main
+    o.run(args)
+  File "C:\odoo\odoo\cli\server.py", line 182, in run
+    main(args)
+  File "C:\odoo\odoo\cli\server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "C:\odoo\odoo\service\server.py", line 1462, in start
+    rc = server.run(preload, stop)
+  File "C:\odoo\odoo\service\server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "C:\odoo\odoo\service\server.py", line 1366, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "C:\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "C:\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "C:\odoo\odoo\modules\registry.py", line 129, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo\odoo\modules\loading.py", line 594, in load_modules
+    registry.init_models(cr, list(models_to_check), {'models_to_check': True})
+  File "C:\odoo\odoo\modules\registry.py", line 623, in init_models
+    env.flush_all()
+  File "C:\odoo\odoo\api.py", line 857, in flush_all
+    self._recompute_all()
+  File "C:\odoo\odoo\api.py", line 850, in _recompute_all
+    self[field.model_name]._recompute_field(field)
+  File "C:\odoo\odoo\models.py", line 7360, in _recompute_field
+    field.recompute(records)
+  File "C:\odoo\odoo\fields.py", line 1463, in recompute
+    apply_except_missing(self.compute_value, recs)
+  File "C:\odoo\odoo\fields.py", line 1436, in apply_except_missing
+    func(records)
+  File "C:\odoo\odoo\fields.py", line 1472, in compute_value
+    fields = records.pool.field_computed[self]
+  File "C:\odoo\odoo\tools\func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "C:\odoo\odoo\modules\registry.py", line 393, in field_computed
+    warnings.warn(
+ 
+2026-03-14 09:58:11,573 9316 WARNING hackathon py.warnings: C:\odoo\odoo\modules\registry.py:408: UserWarning: core.product: inconsistent 'store' for computed fields, accessing stock_qty may recompute and update is_low_stock. Use distinct compute methods for stored and non-stored fields.
+  File "C:\odoo\setup\odoo", line 8, in <module>
+    odoo.cli.main()
+  File "C:\odoo\odoo\cli\command.py", line 67, in main
+    o.run(args)
+  File "C:\odoo\odoo\cli\server.py", line 182, in run
+    main(args)
+  File "C:\odoo\odoo\cli\server.py", line 175, in main
+    rc = odoo.service.server.start(preload=preload, stop=stop)
+  File "C:\odoo\odoo\service\server.py", line 1462, in start
+    rc = server.run(preload, stop)
+  File "C:\odoo\odoo\service\server.py", line 627, in run
+    rc = preload_registries(preload)
+  File "C:\odoo\odoo\service\server.py", line 1366, in preload_registries
+    registry = Registry.new(dbname, update_module=update_module)
+  File "C:\odoo\venv\Lib\site-packages\decorator.py", line 232, in fun
+    return caller(func, *(extras + args), **kw)
+  File "C:\odoo\odoo\tools\func.py", line 97, in locked
+    return func(inst, *args, **kwargs)
+  File "C:\odoo\odoo\modules\registry.py", line 129, in new
+    odoo.modules.load_modules(registry, force_demo, status, update_module)
+  File "C:\odoo\odoo\modules\loading.py", line 594, in load_modules
+    registry.init_models(cr, list(models_to_check), {'models_to_check': True})
+  File "C:\odoo\odoo\modules\registry.py", line 623, in init_models
+    env.flush_all()
+  File "C:\odoo\odoo\api.py", line 857, in flush_all
+    self._recompute_all()
+  File "C:\odoo\odoo\api.py", line 850, in _recompute_all
+    self[field.model_name]._recompute_field(field)
+  File "C:\odoo\odoo\models.py", line 7360, in _recompute_field
+    field.recompute(records)
+  File "C:\odoo\odoo\fields.py", line 1463, in recompute
+    apply_except_missing(self.compute_value, recs)
+  File "C:\odoo\odoo\fields.py", line 1436, in apply_except_missing
+    func(records)
+  File "C:\odoo\odoo\fields.py", line 1472, in compute_value
+    fields = records.pool.field_computed[self]
+  File "C:\odoo\odoo\tools\func.py", line 42, in __get__
+    value = self.fget(obj)
+  File "C:\odoo\odoo\modules\registry.py", line 408, in field_computed
+    warnings.warn(
+ 
+2026-03-14 09:58:12,787 9316 INFO hackathon odoo.modules.loading: Modules loaded. 
+2026-03-14 09:58:12,787 9316 INFO hackathon odoo.modules.registry: Registry changed, signaling through the database 
+2026-03-14 09:58:12,796 9316 INFO hackathon odoo.modules.registry: Registry loaded in 13.498s 
+2026-03-14 09:58:12,798 9316 INFO hackathon odoo.addons.base.models.ir_http: Generating routing map for key None 
+2026-03-14 09:58:13,130 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:13] "GET /websocket?version=18.0-5 HTTP/1.1" 101 - 6 0.007 13.571
+2026-03-14 09:58:13,157 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.stock.move records with IDs: [17, 18, 19, 20, 21, 22] 
+2026-03-14 09:58:13,173 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.picking records with IDs: [8, 9, 10, 11] 
+2026-03-14 09:58:13,187 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.product records with IDs: [11, 12, 13] 
+2026-03-14 09:58:13,198 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.product.category records with IDs: [49, 50, 51] 
+2026-03-14 09:58:13,209 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.location records with IDs: [15, 16, 17, 18, 19] 
+2026-03-14 09:58:13,212 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.warehouse records with IDs: [5] 
+2026-03-14 09:58:13,430 9316 INFO hackathon odoo.modules.registry: Caches invalidated, signaling through the database: ['default'] 
+2026-03-14 09:58:13,430 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:13] "POST /api/inventory/setup HTTP/1.1" 200 - 92 0.258 5.051
+2026-03-14 09:58:13,524 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:13] "POST /bus/has_missed_notifications HTTP/1.1" 200 - 3 0.008 0.013
+2026-03-14 09:58:13,587 9316 INFO ? odoo.addons.bus.models.bus: Bus.loop listen imbus on db postgres 
+2026-03-14 09:58:41,791 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:41] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 5 0.006 0.005
+2026-03-14 09:58:41,812 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:41] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.019 0.013
+2026-03-14 09:58:42,056 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 4 0.005 0.009
+2026-03-14 09:58:42,122 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.011 0.013
+2026-03-14 09:58:42,130 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 4 0.004 0.004
+2026-03-14 09:58:42,409 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.023 0.015
+2026-03-14 09:58:42,597 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.019 0.154
+2026-03-14 09:58:42,604 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 4 0.004 0.168
+2026-03-14 09:58:42,615 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.009 0.160
+2026-03-14 09:58:42,650 9316 ERROR hackathon odoo.sql_db: bad query: b' UPDATE "core_product"\n                    SET "is_low_stock" = "__tmp"."is_low_stock"::bool, "write_date" = "__tmp"."write_date"::timestamp, "write_uid" = "__tmp"."write_uid"::int4\n                    FROM (VALUES (14, false, \'2026-03-14T09:58:42.597820\'::timestamp, 4), (15, false, \'2026-03-14T09:58:42.597820\'::timestamp, 4), (16, true, \'2026-03-14T09:58:42.597820\'::timestamp, 4)) AS "__tmp"("id", "is_low_stock", "write_date", "write_uid")\n                    WHERE "core_product"."id" = "__tmp"."id"\n                '
+ERROR: could not serialize access due to concurrent update
+ 
+2026-03-14 09:58:42,651 9316 INFO hackathon odoo.service.model: SERIALIZATION_FAILURE, 4 tries left, try again in 1.5929 sec... 
+2026-03-14 09:58:42,698 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:42] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.006 0.007
+2026-03-14 09:58:44,268 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:44] "GET /api/inventory/dashboard HTTP/1.1" 200 - 28 0.049 1.791
+2026-03-14 09:58:44,309 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:58:44] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.008 0.016
+2026-03-14 09:59:13,118 9316 INFO hackathon odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) starting 
+2026-03-14 09:59:13,260 9316 INFO hackathon odoo.addons.base.models.ir_attachment: filestore gc 1 checked, 0 removed 
+2026-03-14 09:59:13,559 9316 INFO hackathon odoo.addons.base.models.res_users: GC'd 0 user log entries 
+2026-03-14 09:59:13,590 9316 INFO hackathon odoo.addons.base.models.res_users: GC 'res.users.apikeys' delete 0 entries 
+2026-03-14 09:59:13,618 9316 INFO hackathon odoo.addons.base.models.res_device: GC device logs delete 0 entries 
+2026-03-14 09:59:13,626 9316 INFO hackathon odoo.addons.base.models.res_device: GC device logs delete 0 entries 
+2026-03-14 09:59:13,698 9316 INFO hackathon odoo.addons.base.models.res_users: GC 'auth_totp.device' delete 0 entries 
+2026-03-14 09:59:13,782 9316 INFO hackathon odoo.models.unlink: User #1 deleted core.dashboard records with IDs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13] 
+2026-03-14 09:59:14,111 9316 INFO hackathon odoo.addons.sms.models.sms_sms: GC'd 0 sms marked for deletion 
+2026-03-14 09:59:14,382 9316 INFO hackathon odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) done in 1.264s 
+2026-03-14 09:59:14,390 9316 INFO hackathon odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) processed 0 records, 0 records remaining 
+2026-03-14 09:59:14,405 9316 INFO hackathon odoo.addons.base.models.ir_cron: Job 'Base: Auto-vacuum internal data' (1) completed 
+2026-03-14 09:59:15,727 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:15] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.011 0.010
+2026-03-14 09:59:15,741 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:15] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.019 0.018
+2026-03-14 09:59:15,984 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:15] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.003 0.014
+2026-03-14 09:59:16,068 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:16] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.016 0.019
+2026-03-14 09:59:24,186 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:24] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.020 0.012
+2026-03-14 09:59:24,534 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:24] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.013 0.024
+2026-03-14 09:59:26,432 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:26] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.009 0.014
+2026-03-14 09:59:26,696 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:26] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.006 0.009
+2026-03-14 09:59:27,426 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:27] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.011 0.013
+2026-03-14 09:59:27,756 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:27] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.010 0.011
+2026-03-14 09:59:35,194 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:35] "GET /odoo/action-299 HTTP/1.1" 200 - 97 0.119 3.051
+2026-03-14 09:59:36,367 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:36] "GET /web/manifest.webmanifest HTTP/1.1" 200 - 9 0.007 0.013
+2026-03-14 09:59:36,521 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:36] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 13 0.013 0.030
+2026-03-14 09:59:36,820 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:36] "POST /web/action/load HTTP/1.1" 200 - 10 0.017 0.013
+2026-03-14 09:59:36,905 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:36] "POST /mail/data HTTP/1.1" 200 - 34 0.057 0.027
+2026-03-14 09:59:37,420 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:37] "POST /web/dataset/call_kw/product.template/get_views HTTP/1.1" 200 - 74 0.106 0.159
+2026-03-14 09:59:37,776 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:37] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 7 0.009 0.016
+2026-03-14 09:59:38,457 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:38] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.010 0.010
+2026-03-14 09:59:39,597 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:39] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.002 0.017
+2026-03-14 09:59:42,533 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:42] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.004 0.014
+2026-03-14 09:59:44,891 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:44] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.006 0.011
+2026-03-14 09:59:48,166 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:48] "POST /web/action/load HTTP/1.1" 200 - 9 0.008 0.010
+2026-03-14 09:59:48,672 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:48] "POST /web/dataset/call_kw/stock.picking.type/get_views HTTP/1.1" 200 - 56 0.058 0.110
+2026-03-14 09:59:48,848 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:48] "POST /web/dataset/call_kw/stock.picking.type/web_search_read HTTP/1.1" 200 - 22 0.078 0.019
+2026-03-14 09:59:49,006 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:49] "GET /web/bundle/web.chartjs_lib?lang=en_US&debug=1 HTTP/1.1" 200 - 2 0.002 0.012
+2026-03-14 09:59:51,429 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:51] "POST /web/action/load HTTP/1.1" 200 - 6 0.032 0.026
+2026-03-14 09:59:51,890 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:51] "GET /web/bundle/spreadsheet.o_spreadsheet?lang=en_US&debug=1 HTTP/1.1" 200 - 2 0.002 0.135
+2026-03-14 09:59:52,077 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:52] "POST /web/dataset/call_kw/spreadsheet.dashboard.group/web_search_read HTTP/1.1" 200 - 9 0.025 0.050
+2026-03-14 09:59:52,428 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:52] "POST /web/dataset/call_kw/spreadsheet.dashboard/get_readonly_dashboard HTTP/1.1" 200 - 26 0.031 0.089
+2026-03-14 09:59:56,699 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:56] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.010 0.017
+2026-03-14 09:59:56,949 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 09:59:56] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.010 0.015
+2026-03-14 10:01:07,266 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:07] "POST /web/dataset/call_kw/spreadsheet.dashboard.group/web_search_read HTTP/1.1" 200 - 4 0.014 0.042
+2026-03-14 10:01:07,493 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:07] "POST /web/dataset/call_kw/spreadsheet.dashboard/get_readonly_dashboard HTTP/1.1" 200 - 16 0.015 0.039
+2026-03-14 10:01:16,474 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:16] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.013 0.014
+2026-03-14 10:01:22,549 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:22] "GET /odoo/dashboards?dashboard_id=2 HTTP/1.1" 200 - 16 0.021 0.055
+2026-03-14 10:01:23,071 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "GET /web/manifest.webmanifest HTTP/1.1" 200 - 7 0.005 0.015
+2026-03-14 10:01:23,524 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "POST /web/action/load HTTP/1.1" 200 - 7 0.016 0.016
+2026-03-14 10:01:23,578 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "GET /web/image?model=res.users&field=avatar_128&id=2 HTTP/1.1" 304 - 9 0.024 0.038
+2026-03-14 10:01:23,679 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "POST /mail/data HTTP/1.1" 200 - 23 0.088 0.079
+2026-03-14 10:01:23,759 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "GET /web/bundle/web.chartjs_lib?lang=en_US&debug=1 HTTP/1.1" 200 - 1 0.002 0.004
+2026-03-14 10:01:23,898 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:23] "GET /web/bundle/spreadsheet.o_spreadsheet?lang=en_US&debug=1 HTTP/1.1" 200 - 1 0.001 0.007
+2026-03-14 10:01:24,100 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:24] "POST /web/dataset/call_kw/spreadsheet.dashboard.group/web_search_read HTTP/1.1" 200 - 4 0.005 0.015
+2026-03-14 10:01:24,323 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:24] "POST /web/dataset/call_kw/spreadsheet.dashboard/get_readonly_dashboard HTTP/1.1" 200 - 16 0.018 0.036
+2026-03-14 10:01:25,600 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:25] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.005 0.012
+2026-03-14 10:01:29,135 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:29] "POST /web/action/load HTTP/1.1" 200 - 9 0.002 0.008
+2026-03-14 10:01:29,402 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:29] "POST /web/dataset/call_kw/stock.picking.type/get_views HTTP/1.1" 200 - 3 0.001 0.016
+2026-03-14 10:01:29,497 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:29] "POST /web/dataset/call_kw/stock.picking.type/web_search_read HTTP/1.1" 200 - 12 0.007 0.011
+2026-03-14 10:01:31,794 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:31] "POST /web/action/load HTTP/1.1" 200 - 10 0.011 0.018
+2026-03-14 10:01:32,209 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:32] "POST /web/dataset/call_kw/product.template/get_views HTTP/1.1" 200 - 3 0.007 0.072
+2026-03-14 10:01:32,399 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:32] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.003 0.007
+2026-03-14 10:01:35,886 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:35] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.004 0.025
+2026-03-14 10:01:39,968 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:39] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.001 0.012
+2026-03-14 10:01:43,330 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:43] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.001 0.015
+2026-03-14 10:01:44,389 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:44] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.003 0.011
+2026-03-14 10:01:44,963 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:44] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 19 0.069 0.032
+2026-03-14 10:01:46,059 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:46] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 9 0.037 0.024
+2026-03-14 10:01:46,678 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:46] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 9 0.018 0.026
+2026-03-14 10:01:47,333 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:47] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 9 0.012 0.022
+2026-03-14 10:01:47,582 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:47] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 9 0.008 0.019
+2026-03-14 10:01:49,770 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:49] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.005 0.020
+2026-03-14 10:01:52,052 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:52] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.001 0.011
+2026-03-14 10:01:53,044 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:01:53] "POST /web/dataset/call_kw/product.template/web_search_read HTTP/1.1" 200 - 3 0.003 0.025
+2026-03-14 10:02:42,380 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:42] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.007 0.013
+2026-03-14 10:02:42,640 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:42] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.006 0.012
+2026-03-14 10:02:43,218 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:43] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.010 0.016
+2026-03-14 10:02:43,554 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:43] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.010 0.018
+2026-03-14 10:02:48,886 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:48] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.008 0.012
+2026-03-14 10:02:48,893 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:48] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.015 0.014
+2026-03-14 10:02:49,131 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:49] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.004 0.008
+2026-03-14 10:02:49,216 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:02:49] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.007 0.014
+2026-03-14 10:03:27,771 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.stock.move records with IDs: [23, 24, 25, 26, 27, 28] 
+2026-03-14 10:03:27,780 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.picking records with IDs: [12, 13, 14, 15] 
+2026-03-14 10:03:27,788 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.product records with IDs: [14, 15, 16] 
+2026-03-14 10:03:27,794 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.product.category records with IDs: [52, 53, 54] 
+2026-03-14 10:03:27,800 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.location records with IDs: [20, 21, 22, 23, 24] 
+2026-03-14 10:03:27,808 9316 INFO hackathon odoo.models.unlink: User #4 deleted core.warehouse records with IDs: [6] 
+2026-03-14 10:03:28,060 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:28] "POST /api/inventory/setup HTTP/1.1" 200 - 67 0.089 0.210
+2026-03-14 10:03:37,826 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:37] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.007 0.015
+2026-03-14 10:03:57,648 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:57] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.012 0.043
+2026-03-14 10:03:57,673 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:57] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.020 0.017
+2026-03-14 10:03:57,876 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:57] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.001 0.016
+2026-03-14 10:03:57,988 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:03:57] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.020 0.010
+2026-03-14 10:05:09,800 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:09] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.014 0.016
+2026-03-14 10:05:10,037 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:10] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.009 0.008
+2026-03-14 10:05:13,092 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:13] "POST /web/dataset/call_kw/product.template/onchange HTTP/1.1" 200 - 26 0.040 0.038
+2026-03-14 10:05:13,288 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:13] "POST /web/dataset/call_kw/product.category/has_access HTTP/1.1" 200 - 1 0.001 0.005
+2026-03-14 10:05:22,461 9316 INFO hackathon odoo.modules.registry: Caches invalidated, signaling through the database: ['default'] 
+2026-03-14 10:05:22,464 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:22] "POST /web/dataset/call_kw/product.template/web_save HTTP/1.1" 200 - 134 0.264 0.226
+2026-03-14 10:05:22,895 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:22] "POST /mail/thread/data HTTP/1.1" 200 - 41 0.052 0.043
+2026-03-14 10:05:22,930 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:22] "POST /mail/thread/messages HTTP/1.1" 200 - 20 0.054 0.037
+2026-03-14 10:05:25,650 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:25] "GET /api/inventory/products HTTP/1.1" 200 - 13 0.005 0.014
+2026-03-14 10:05:25,980 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:25] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.005 0.014
+2026-03-14 10:05:30,028 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:30] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.006 0.019
+2026-03-14 10:05:30,289 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:30] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.008 0.018
+2026-03-14 10:05:32,048 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:32] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.005 0.011
+2026-03-14 10:05:32,377 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:32] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.003 0.013
+2026-03-14 10:05:34,062 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:34] "OPTIONS /api/inventory/history HTTP/1.1" 200 - 5 0.008 0.006
+2026-03-14 10:05:34,065 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:34] "OPTIONS /api/inventory/history HTTP/1.1" 200 - 5 0.008 0.006
+2026-03-14 10:05:34,339 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:34] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.009 0.011
+2026-03-14 10:05:34,392 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:34] "GET /api/inventory/history HTTP/1.1" 200 - 10 0.009 0.008
+2026-03-14 10:05:38,759 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:38] "OPTIONS /api/inventory/operations?status= HTTP/1.1" 200 - 5 0.004 0.008
+2026-03-14 10:05:39,112 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:39] "OPTIONS /api/inventory/operations?status= HTTP/1.1" 200 - 5 0.000 0.036
+2026-03-14 10:05:39,137 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:39] "GET /api/inventory/dashboard HTTP/1.1" 200 - 18 0.006 0.034
+2026-03-14 10:05:39,151 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:39] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.004 0.010
+2026-03-14 10:05:39,493 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:39] "GET /api/inventory/operations?status= HTTP/1.1" 200 - 7 0.002 0.015
+2026-03-14 10:05:39,498 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:39] "GET /api/inventory/dashboard HTTP/1.1" 200 - 17 0.010 0.021
+2026-03-14 10:05:52,246 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:05:52] "GET /web/image/res.users/2/avatar_128 HTTP/1.1" 304 - 13 0.015 0.030
+2026-03-14 10:06:32,378 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:06:32] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.007 0.010
+2026-03-14 10:06:32,635 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:06:32] "GET /api/inventory/operations HTTP/1.1" 200 - 7 0.006 0.010
+2026-03-14 10:06:32,721 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:06:32] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.009 0.015
+2026-03-14 10:06:33,047 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:06:33] "GET /api/inventory/products HTTP/1.1" 200 - 12 0.006 0.014
+2026-03-14 10:07:05,992 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:07:05] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.009 0.013
+2026-03-14 10:08:24,651 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:08:24] "GET /api/inventory/dashboard HTTP/1.1" 200 - 15 0.006 0.010
+2026-03-14 10:08:49,388 9316 INFO hackathon odoo.addons.base.models.res_device: User 2 inserts device log (DsNcv69KUeEP5PvbygBqV9WnR5AVAy4x-Q4Iy-Bi0B) 
+2026-03-14 10:08:49,412 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:08:49] "GET /websocket?version=18.0-5 HTTP/1.1" 101 - 2 0.009 0.045
+2026-03-14 10:08:49,921 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:08:49] "POST /bus/has_missed_notifications HTTP/1.1" 200 - 2 0.009 0.127
+2026-03-14 10:15:25,782 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:15:25] "OPTIONS /api/auth/login HTTP/1.1" 404 - 73 0.140 1.546
+2026-03-14 10:15:30,932 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:15:30] "OPTIONS /api/auth/login HTTP/1.1" 404 - 9 0.021 0.047
+2026-03-14 10:15:53,030 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:15:53] "OPTIONS /api/auth/login HTTP/1.1" 404 - 9 0.009 0.019
+2026-03-14 10:16:05,252 9316 INFO hackathon werkzeug: 127.0.0.1 - - [14/Mar/2026 10:16:05] "OPTIONS /api/auth/login HTTP/1.1" 404 - 9 0.016 0.044

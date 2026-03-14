@@ -41,7 +41,7 @@
     <menuitem id="menu_core_inventory_settings"
               name="Settings"
               parent="menu_core_inventory_root"
-              sequence="40"/>
+              sequence="50"/>
 
     <!-- Warehouse Submenu under Settings -->
     <menuitem id="menu_core_warehouse"

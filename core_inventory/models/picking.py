@@ -23,7 +23,20 @@ class CorePicking(models.Model):
         ('ready', 'Ready'),
         ('done', 'Done'),
         ('cancel', 'Cancelled')
-    ], string='Status', default='draft')
+    ], string='Status', default='draft', tracking=True)
+
+    @api.onchange('picking_type')
+    def _onchange_picking_type(self):
+        if self.picking_type == 'receipt':
+            self.location_id = self.env['core.location'].search([('usage', '=', 'supplier')], limit=1)
+            self.location_dest_id = self.env['core.location'].search([('usage', '=', 'internal')], limit=1)
+        elif self.picking_type == 'delivery':
+            self.location_id = self.env['core.location'].search([('usage', '=', 'internal')], limit=1)
+            self.location_dest_id = self.env['core.location'].search([('usage', '=', 'customer')], limit=1)
+        elif self.picking_type == 'adjustment':
+            # For adjustments, we typically move from/to a virtual Inventory Loss location
+            self.location_id = self.env['core.location'].search([('usage', '=', 'inventory')], limit=1)
+            self.location_dest_id = self.env['core.location'].search([('usage', '=', 'internal')], limit=1)
 
     scheduled_date = fields.Datetime(string='Scheduled Date', default=fields.Datetime.now)
     line_ids = fields.One2many('core.picking.line', 'picking_id', string='Operations')
@@ -49,6 +62,8 @@ class CorePicking(models.Model):
 
     def action_validate(self):
         for rec in self:
+            if rec.state != 'ready':
+                continue
             for line in rec.line_ids:
                 if line.qty_done <= 0:
                     line.qty_done = line.qty_demand
@@ -65,6 +80,14 @@ class CorePicking(models.Model):
                     'state': 'done'
                 })
             rec.state = 'done'
+
+    def action_cancel(self):
+        for rec in self:
+            rec.state = 'cancel'
+
+    def action_print(self):
+        """ Skeleton for 'Print' requirement in diagram """
+        return True
 
 
 class CorePickingLine(models.Model):
