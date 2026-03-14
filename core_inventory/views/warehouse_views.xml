@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Location Views -->
+    <record id="view_core_location_tree" model="ir.ui.view">
+        <field name="name">core.location.list</field>
+        <field name="model">core.location</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="complete_name"/>
+                <field name="usage"/>
+                <field name="barcode"/>
+                <field name="removal_strategy"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_core_location_form" model="ir.ui.view">
+        <field name="name">core.location.form</field>
+        <field name="model">core.location</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Location Name"/>
+                        <h1><field name="name" placeholder="e.g. Shelf 1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Parent Location?">
+                            <field name="parent_id"/>
+                            <field name="warehouse_id"/>
+                        </group>
+                        <group string="Additional Information">
+                            <field name="usage"/>
+                            <field name="barcode"/>
+                            <field name="scrap_location"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Logistics">
+                            <group>
+                                <field name="removal_strategy"/>
+                            </group>
+                        </page>
+                        <page string="Cyclic Counting">
+                            <group>
+                                <field name="inventory_frequency"/>
+                                <field name="last_inventory_date"/>
+                                <field name="next_inventory_date"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_core_location" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">core.location</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_core_location" name="Locations" parent="menu_core_inventory_settings" action="action_core_location" sequence="20"/>
+
     <!-- Warehouse Views -->
     <record id="view_core_warehouse_tree" model="ir.ui.view">
-        <field name="name">core.warehouse.tree</field>
+        <field name="name">core.warehouse.list</field>
         <field name="model">core.warehouse</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -25,10 +87,11 @@
                     <notebook>
                         <page string="Locations">
                             <field name="location_ids">
-                                <tree editable="bottom">
+                                <list>
                                     <field name="name"/>
                                     <field name="usage"/>
-                                </tree>
+                                    <field name="barcode"/>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -40,9 +103,9 @@
     <record id="action_core_warehouse" model="ir.actions.act_window">
         <field name="name">Warehouses</field>
         <field name="res_model">core.warehouse</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
-    <menuitem id="menu_action_core_warehouse" name="Locations / Warehouses" parent="menu_core_warehouse" action="action_core_warehouse" sequence="10"/>
+    <menuitem id="menu_action_core_warehouse" name="Warehouses" parent="menu_core_warehouse" action="action_core_warehouse" sequence="10"/>
 
 </odoo>
