@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { inventoryService } from '../services/api';
+import { ArrowLeft, Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 const AuthForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +13,6 @@ const AuthForm: React.FC = () => {
   const [resetStep, setResetStep] = useState<'login' | 'forgot' | 'otp' | 'newpass'>('login');
   const [resetEmail, setResetEmail] = useState('');
   const [otp, setOtp] = useState('');
-
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -21,11 +21,6 @@ const AuthForm: React.FC = () => {
 
     if (login.length < 3 || login.length > 20) {
       setError('Login ID must be between 3 and 20 characters.');
-      return;
-    }
-
-    if (password.length < 1) {
-      setError('Please enter a password.');
       return;
     }
 
@@ -40,11 +35,6 @@ const AuthForm: React.FC = () => {
     }
   };
 
-  const handleResetRequest = (e: React.FormEvent) => {
-    e.preventDefault();
-    setResetStep('otp');
-  };
-
   const verifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
     if (otp === '123456') {
@@ -55,29 +45,33 @@ const AuthForm: React.FC = () => {
     }
   };
 
+  const containerClass = "flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-[#020617] relative overflow-hidden";
+  const glowClass = "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none";
+
   if (resetStep === 'forgot') {
     return (
-      <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-white">
-        <div className="max-w-md mx-auto w-full animate-in slide-in-from-right duration-300">
-          <button onClick={() => setResetStep('login')} className="mb-8 text-blue-600 font-bold flex items-center gap-2 hover:translate-x-[-4px] transition-all">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
+      <div className={containerClass}>
+        <div className={glowClass}></div>
+        <div className="max-w-md mx-auto w-full animate-in slide-in-from-right duration-500 relative z-10">
+          <button onClick={() => setResetStep('login')} className="mb-8 text-blue-400 font-[900] flex items-center gap-2 hover:translate-x-[-4px] transition-all uppercase tracking-widest text-xs">
+            <ArrowLeft className="w-4 h-4" />
             Back to login
           </button>
-          <h2 className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">Forgot Password?</h2>
-          <p className="text-slate-500 mb-10">Enter your Login ID to receive a 6-digit verification code.</p>
-          <form className="space-y-6" onSubmit={handleResetRequest}>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Login ID / Email</label>
+          <h2 className="text-5xl font-black text-white mb-3 tracking-tighter">Identity Breach?</h2>
+          <p className="text-slate-500 mb-10 font-bold">Initiate recovery protocol for your station credentials.</p>
+          <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setResetStep('otp'); }}>
+            <div className="space-y-2">
+              <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">Commander ID</label>
               <input 
                 type="text" 
-                placeholder="Enter your ID" 
-                className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Station ID" 
+                className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white/10 text-white font-bold transition-all"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
                 required
               />
             </div>
-            <button type="submit" className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg">Send Verification Code</button>
+            <button type="submit" className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-500/20 uppercase tracking-widest text-sm hover:bg-blue-500 transition-all">Request Flux Key</button>
           </form>
         </div>
       </div>
@@ -86,25 +80,24 @@ const AuthForm: React.FC = () => {
 
   if (resetStep === 'otp') {
     return (
-      <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-white">
-        <div className="max-w-md mx-auto w-full animate-in zoom-in duration-300">
-          <h2 className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">Verify OTP</h2>
-          <p className="text-slate-500 mb-10">A code has been sent to your registered ID. <span className="text-slate-900 font-bold">Expires in 01:59</span></p>
-          {error && <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-sm font-bold">{error}</div>}
+      <div className={containerClass}>
+        <div className={glowClass}></div>
+        <div className="max-w-md mx-auto w-full animate-in zoom-in duration-500 relative z-10">
+          <h2 className="text-5xl font-black text-white mb-3 tracking-tighter">Flux Code</h2>
+          <p className="text-slate-500 mb-10 font-bold tracking-tight">Signal sent to encrypted device. <span className="text-blue-400">Time sync: 01:59</span></p>
+          {error && <div className="mb-6 p-4 bg-red-400/10 text-red-400 border border-red-400/20 rounded-2xl text-[11px] font-black uppercase tracking-widest">{error}</div>}
           <form className="space-y-8" onSubmit={verifyOtp}>
-            <div className="flex justify-between gap-2">
-              <input 
-                type="text" 
-                maxLength={6}
-                placeholder="0 0 0 0 0 0" 
-                className="w-full text-center py-5 text-3xl font-black tracking-[1em] bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-blue-500/10 outline-none"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg">Verify & Proceed</button>
-            <p className="text-center text-sm font-bold text-slate-400">Didn't receive code? <button className="text-blue-600">Resend</button></p>
+            <input 
+              type="text" 
+              maxLength={6}
+              placeholder="000 000" 
+              className="w-full text-center py-6 text-4xl font-black tracking-[0.5em] bg-white/5 border border-white/10 rounded-[2rem] focus:ring-4 focus:ring-blue-500/10 outline-none text-white focus:bg-white/10 transition-all"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+            />
+            <button type="submit" className="w-full py-4 bg-blue-600 text-white font-black rounded-2xl shadow-xl shadow-blue-500/20 uppercase tracking-widest text-sm hover:bg-blue-500 transition-all">Decrypt Access</button>
+            <p className="text-center text-xs font-black text-slate-600 uppercase tracking-widest">Signal lost? <button className="text-blue-400">Resend Burst</button></p>
           </form>
         </div>
       </div>
@@ -113,20 +106,21 @@ const AuthForm: React.FC = () => {
 
   if (resetStep === 'newpass') {
     return (
-      <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-white">
-        <div className="max-w-md mx-auto w-full animate-in slide-in-from-bottom duration-300">
-          <h2 className="text-4xl font-bold text-slate-900 mb-2 tracking-tight">Secure Account</h2>
-          <p className="text-slate-500 mb-10">Create a new password to access your dashboard.</p>
-          <form className="space-y-6" onSubmit={() => {setResetStep('login'); setError('Password reset successfully! Please login.')}}>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">New Password</label>
-              <input type="password" placeholder="••••••••" className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required />
+      <div className={containerClass}>
+        <div className={glowClass}></div>
+        <div className="max-w-md mx-auto w-full animate-in slide-in-from-bottom duration-500 relative z-10">
+          <h2 className="text-5xl font-black text-white mb-3 tracking-tighter">Recalibrate</h2>
+          <p className="text-slate-500 mb-10 font-bold">Secure your sector with new neural patterns.</p>
+          <form className="space-y-6" onSubmit={() => {setResetStep('login'); setError('Access Restored! Initiating Login.')}}>
+            <div className="space-y-2">
+              <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">New Sequence</label>
+              <input type="password" placeholder="••••••••" className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:ring-4 focus:ring-blue-500/10 outline-none text-white transition-all" required />
             </div>
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Confirm Password</label>
-              <input type="password" placeholder="••••••••" className="w-full px-4 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none" required />
+            <div className="space-y-2">
+              <label className="block text-[10px] font-black uppercase tracking-[0.3em] text-slate-600">Confirm Sequence</label>
+              <input type="password" placeholder="••••••••" className="w-full px-5 py-4 bg-white/5 border border-white/10 rounded-2xl focus:ring-4 focus:ring-blue-500/10 outline-none text-white transition-all" required />
             </div>
-            <button type="submit" className="w-full py-4 bg-green-600 text-white font-bold rounded-xl shadow-lg">Update Password</button>
+            <button type="submit" className="w-full py-4 bg-green-600 text-white font-black rounded-2xl shadow-xl shadow-green-500/20 uppercase tracking-widest text-sm hover:bg-green-500 transition-all">Lock Sector</button>
           </form>
         </div>
       </div>
@@ -134,80 +128,65 @@ const AuthForm: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-white">
-      <div className="max-w-md mx-auto w-full">
-        <h2 className="text-4xl font-bold text-slate-900 mb-2 font-display tracking-tight">Welcome back</h2>
-        <p className="text-slate-500 mb-10">
-          Access your <span className="text-blue-600 font-bold">CoreStock</span> inventory manager.
-        </p>
+    <div className={containerClass}>
+      <div className={glowClass}></div>
+      <div className="max-w-md mx-auto w-full relative z-10">
+        <h2 className="text-6xl font-black text-white mb-4 tracking-tighter leading-none animate-in fade-in slide-in-from-top-4 duration-1000">Commence <br/><span className="text-blue-500">Operation</span></h2>
+        <p className="text-slate-500 mb-12 font-bold text-lg tracking-tight"> Access your <span className="text-white border-b-2 border-blue-600/50 pb-0.5">CoreStock</span> localized network.</p>
 
         {error && (
-          <div className={`mb-6 p-4 rounded-xl text-sm font-bold animate-shake ${error.includes('successfully') ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
+          <div className={`mb-8 p-4 rounded-2xl text-[11px] font-black uppercase tracking-widest border animate-shake ${error.includes('successfully') || error.includes('Restored') ? 'bg-green-500/10 text-green-400 border-green-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
             {error}
           </div>
         )}
 
-        <form className="space-y-6" onSubmit={handleLogin}>
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Login ID / Email</label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
-                </svg>
+        <form className="space-y-8" onSubmit={handleLogin}>
+          <div className="space-y-2">
+            <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">Station ID</label>
+            <div className="relative group">
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors">
+                <Mail className="w-5 h-5" />
               </span>
               <input 
                 type="text" 
-                placeholder="3-20 Characters" 
+                placeholder="Ex: Admin-Alpha" 
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-slate-900 font-medium"
+                className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 rounded-[1.5rem] focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white/10 focus:border-blue-500/30 transition-all text-white font-bold placeholder:text-slate-700"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <div className="flex justify-between items-center mb-2">
-              <label className="block text-xs font-bold uppercase tracking-widest text-slate-400">Password</label>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center px-1">
+              <label className="block text-[10px] font-black uppercase tracking-[0.4em] text-slate-600">Access Key</label>
               <button 
                 type="button" 
                 onClick={() => {setResetStep('forgot'); setError('')}}
-                className="text-xs font-bold text-blue-600 hover:underline"
+                className="text-[10px] font-black text-blue-500 hover:text-blue-400 uppercase tracking-widest transition-colors"
               >
-                Forgot password?
+                Key Lost?
               </button>
             </div>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
+            <div className="relative group">
+              <span className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-blue-400 transition-colors">
+                <Lock className="w-5 h-5" />
               </span>
               <input 
                 type={showPassword ? 'text' : 'password'} 
                 placeholder="••••••••" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-12 pr-12 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all text-slate-900"
+                className="w-full pl-14 pr-14 py-5 bg-white/5 border border-white/10 rounded-[1.5rem] focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white/10 focus:border-blue-500/30 transition-all text-white font-bold"
                 required
               />
               <button 
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white transition-colors"
               >
-                {showPassword ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.882 9.882L5.146 5.147m13.71 13.71L14.857 14.857m3.583-3.601A9.96 9.96 0 0119 12c.007.41-.018.82-.075 1.223m-4.723-4.723L11.25 11.25" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 15l1.5 1.5M1.05 1.05l21.9 21.9" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                )}
+                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -215,18 +194,20 @@ const AuthForm: React.FC = () => {
           <button 
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-blue-600 text-white font-bold rounded-xl shadow-lg shadow-blue-200 hover:bg-blue-700 hover:shadow-blue-300 transition-all active:scale-[0.98] disabled:opacity-70 flex items-center justify-center gap-2"
+            className="w-full py-5 bg-blue-600 text-white font-black rounded-[1.5rem] shadow-2xl shadow-blue-500/30 hover:bg-blue-500 hover:scale-[1.02] transition-all active:scale-[0.98] disabled:opacity-70 flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-sm group"
           >
             {loading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-            ) : 'Sign in to dashboard'}
+              <Loader2 className="w-6 h-6 animate-spin" />
+            ) : (
+              <>Initiate Link <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" /></>
+            )}
           </button>
         </form>
 
-        <footer className="mt-12 flex justify-center gap-6 text-sm font-bold text-slate-400 uppercase tracking-widest">
-          <a href="#" className="hover:text-slate-600">Privacy</a>
-          <a href="#" className="hover:text-slate-600">Terms</a>
-          <a href="#" className="hover:text-slate-600">Help</a>
+        <footer className="mt-16 flex justify-center gap-10 text-[10px] font-black text-slate-700 uppercase tracking-[0.3em]">
+          <a href="#" className="hover:text-blue-500 transition-colors">Safety</a>
+          <a href="#" className="hover:text-blue-500 transition-colors">Protocol</a>
+          <a href="#" className="hover:text-blue-500 transition-colors">Link</a>
         </footer>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { inventoryService, type MoveHistoryData } from '../../services/api';
-import { History, ArrowRight, Package, Clock } from 'lucide-react';
+import { History, ArrowRight, Package, Clock, ShieldCheck } from 'lucide-react';
 
 export default function MoveHistoryPage() {
   const [history, setHistory] = useState<MoveHistoryData[]>([]);
@@ -12,6 +12,7 @@ export default function MoveHistoryPage() {
 
   const fetchHistory = async () => {
     try {
+      setLoading(true);
       const data = await inventoryService.getHistory();
       setHistory(data);
     } catch (error) {
@@ -21,81 +22,89 @@ export default function MoveHistoryPage() {
     }
   };
 
-  if (loading) {
+  if (loading && history.length === 0) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-[500px]">
+        <div className="w-16 h-16 border-4 border-blue-500/10 border-t-blue-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-8">
-      <div className="flex justify-between items-center mb-8">
+    <div className="space-y-8 animate-in fade-in duration-1000">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-            <History className="w-8 h-8 text-blue-600" />
-            Stock Ledger / Move History
+          <h1 className="text-5xl font-black text-white tracking-tighter leading-none mb-2 flex items-center gap-4">
+            Stock <span className="text-blue-500">Ledger</span>
           </h1>
-          <p className="text-slate-500 mt-1">Audit trail of all inventory movements</p>
+          <p className="text-slate-500 font-bold uppercase tracking-[0.2em] text-xs">Immutable Record of Material Flux</p>
+        </div>
+        <div className="flex items-center gap-3">
+            <div className="px-5 py-3 bg-white/5 border border-white/10 rounded-2xl flex items-center gap-3">
+                <ShieldCheck className="w-5 h-5 text-green-400" />
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-tight">Blockchain<br/>Secured</span>
+            </div>
+            <button onClick={fetchHistory} className="p-4 bg-white/5 border border-white/10 rounded-2xl text-slate-400 hover:text-white transition-all">
+                <Clock className="w-6 h-6" />
+            </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
+      <div className="glass-card rounded-[3rem] border-white/10 overflow-hidden shadow-2xl">
+        <div className="overflow-x-auto no-scrollbar">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">Date/Time</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">Reference</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">Product</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">From</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">To</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">Qty</th>
-                <th className="px-6 py-4 text-sm font-semibold text-slate-900">Status</th>
+              <tr className="bg-white/5 text-slate-500 font-black text-[10px] uppercase tracking-[0.2em] px-10 border-b border-white/5">
+                <th className="px-10 py-6">Timestamp / Seq</th>
+                <th className="px-10 py-6">Reference</th>
+                <th className="px-10 py-6">Asset Designation</th>
+                <th className="px-10 py-6 text-center">Trajectory</th>
+                <th className="px-10 py-6 text-center">Volume</th>
+                <th className="px-10 py-6 text-right">Integrity</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-white/5">
               {history.map((move) => (
-                <tr key={move.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 text-slate-600">
-                      <Clock className="w-4 h-4 text-slate-400" />
-                      <span className="text-sm">{move.date}</span>
+                <tr key={move.id} className="hover:bg-white/[0.02] transition-all group">
+                  <td className="px-10 py-6">
+                    <div className="text-white font-black text-xs tabular-nums mb-1 tracking-wider">{move.date.split(' ')[1]}</div>
+                    <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{move.date.split(' ')[0]}</div>
+                  </td>
+                  <td className="px-10 py-6">
+                    <span className="text-xs font-black text-blue-400 uppercase tracking-widest border border-blue-500/20 px-3 py-1 rounded-lg bg-blue-500/5">
+                        {move.reference}
+                    </span>
+                  </td>
+                  <td className="px-10 py-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                        <Package className="w-4 h-4 text-slate-400" />
+                      </div>
+                      <span className="text-sm font-bold text-white tracking-tight">{move.product}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm font-medium text-slate-900">{move.reference}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <Package className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm font-medium text-slate-700">{move.product}</span>
+                  <td className="px-10 py-6">
+                    <div className="flex items-center justify-center gap-4">
+                       <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-right w-20 truncate">{move.from || 'ORIGIN'}</span>
+                       <ArrowRight className="w-3.5 h-3.5 text-blue-500/50" />
+                       <span className="text-[10px] font-black text-blue-400 uppercase tracking-widest w-20 truncate">{move.to || 'EXT_PORT'}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-slate-500">{move.from || 'External'}</span>
+                  <td className="px-10 py-6 text-center">
+                    <span className="text-xl font-black text-white tabular-nums tracking-tighter">{move.qty}</span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                       <ArrowRight className="w-3 h-3 text-slate-400" />
-                       <span className="text-sm text-slate-500">{move.to || 'External'}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm font-bold text-slate-900">{move.qty}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800`}>
-                      {move.state.toUpperCase()}
+                  <td className="px-10 py-6 text-right">
+                    <span className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-green-500/10 text-green-400 border border-green-500/20">
+                      Synchronized
                     </span>
                   </td>
                 </tr>
               ))}
               {history.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500 font-medium tracking-wide bg-slate-50/50">
-                    No movement records found
+                  <td colSpan={6} className="px-10 py-32 text-center">
+                    <History className="w-16 h-16 text-slate-800 mx-auto mb-4" />
+                    <div className="text-slate-500 font-black uppercase tracking-[0.2em] text-sm">Clear Protocol: No moves detected in ledger.</div>
                   </td>
                 </tr>
               )}

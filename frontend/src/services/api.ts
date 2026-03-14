@@ -115,6 +115,26 @@ export const inventoryService = {
         return this._call('/api/inventory/invoices');
     },
 
+    async createProduct(product: any): Promise<any> {
+        return this._call('/api/inventory/product/create', 'POST', product);
+    },
+
+    async createOperation(operation: any): Promise<any> {
+        return this._call('/api/inventory/operation/create', 'POST', operation);
+    },
+
+    async validateOperation(id: number): Promise<any> {
+        return this._call('/api/inventory/operation/validate', 'POST', { id });
+    },
+
+    async applyAdjustment(adjustment: any): Promise<any> {
+        return this._call('/api/inventory/adjustment', 'POST', adjustment);
+    },
+
+    async getWarehouses(): Promise<any[]> {
+        return this._call('/api/inventory/warehouses');
+    },
+
     async setupDemoData(): Promise<any> {
         return this._call('/api/inventory/setup', 'POST');
     }

@@ -344,3 +344,123 @@ class CoreInventoryApi(http.Controller):
                 'date': str(inv.invoice_date) if inv.invoice_date else ''
             })
         return self._cors_response(data)
+
+    @http.route('/api/inventory/product/create', type='http', auth='public', methods=['POST', 'OPTIONS'], csrf=False)
+    def create_product(self):
+        if request.httprequest.method == 'OPTIONS':
+            return self._cors_response({})
+        try:
+            body = json.loads(request.httprequest.data)
+            category = request.env['product.category'].sudo().search([('name', '=', body.get('category'))], limit=1)
+            if not category:
+                category = request.env['product.category'].sudo().create({'name': body.get('category')})
+            
+            product = request.env['product.product'].sudo().create({
+                'name': body.get('name'),
+                'default_code': body.get('sku'),
+                'list_price': float(body.get('price', 0)),
+                'type': 'product',
+                'categ_id': category.id,
+            })
+            return self._cors_response({'status': 'success', 'id': product.id})
+        except Exception as e:
+            return self._cors_response({'status': 'error', 'message': str(e)})
+
+    @http.route('/api/inventory/operation/create', type='http', auth='public', methods=['POST', 'OPTIONS'], csrf=False)
+    def create_operation(self):
+        if request.httprequest.method == 'OPTIONS':
+            return self._cors_response({})
+        try:
+            body = json.loads(request.httprequest.data)
+            type_code = body.get('type') # incoming, outgoing, internal
+            picking_type = request.env['stock.picking.type'].sudo().search([('code', '=', type_code)], limit=1)
+            
+            # Find Locations
+            loc_stock = request.env['stock.location'].sudo().search([('usage', '=', 'internal')], limit=1)
+            loc_supp = request.env['stock.location'].sudo().search([('usage', '=', 'supplier')], limit=1)
+            loc_cust = request.env['stock.location'].sudo().search([('usage', '=', 'customer')], limit=1)
+
+            partner = request.env['res.partner'].sudo().search([('name', '=', body.get('partner'))], limit=1)
+            if not partner:
+                partner = request.env['res.partner'].sudo().create({'name': body.get('partner')})
+
+            pick = request.env['stock.picking'].sudo().create({
+                'picking_type_id': picking_type.id,
+                'location_id': loc_supp.id if type_code == 'incoming' else loc_stock.id,
+                'location_dest_id': loc_cust.id if type_code == 'outgoing' else loc_stock.id,
+                'partner_id': partner.id,
+                'origin': body.get('origin', ''),
+            })
+
+            for line in body.get('lines', []):
+                product = request.env['product.product'].sudo().browse(line.get('product_id'))
+                request.env['stock.move'].sudo().create({
+                    'name': product.name,
+                    'product_id': product.id,
+                    'product_uom_qty': float(line.get('qty', 1)),
+                    'product_uom': product.uom_id.id,
+                    'picking_id': pick.id,
+                    'location_id': pick.location_id.id,
+                    'location_dest_id': pick.location_dest_id.id,
+                })
+            
+            pick.action_confirm()
+            return self._cors_response({'status': 'success', 'id': pick.id, 'name': pick.name})
+        except Exception as e:
+            return self._cors_response({'status': 'error', 'message': str(e)})
+
+    @http.route('/api/inventory/operation/validate', type='http', auth='public', methods=['POST', 'OPTIONS'], csrf=False)
+    def validate_operation(self):
+        if request.httprequest.method == 'OPTIONS':
+            return self._cors_response({})
+        try:
+            body = json.loads(request.httprequest.data)
+            picking = request.env['stock.picking'].sudo().browse(body.get('id'))
+            if picking.state not in ('assigned', 'confirmed'):
+                picking.action_assign()
+            
+            # Set quantities done
+            for move in picking.move_ids_without_package:
+                move.quantity_done = move.product_uom_qty
+                
+            res = picking.button_validate()
+            return self._cors_response({'status': 'success'})
+        except Exception as e:
+            return self._cors_response({'status': 'error', 'message': str(e)})
+
+    @http.route('/api/inventory/adjustment', type='http', auth='public', methods=['POST', 'OPTIONS'], csrf=False)
+    def inventory_adjustment(self):
+        if request.httprequest.method == 'OPTIONS':
+            return self._cors_response({})
+        try:
+            body = json.loads(request.httprequest.data)
+            product = request.env['product.product'].sudo().browse(body.get('product_id'))
+            location = request.env['stock.location'].sudo().search([('usage', '=', 'internal')], limit=1)
+            
+            # Use standard Odoo adjustment flow
+            # For Odoo 15+, we use stock.quant.create and apply it
+            quant = request.env['stock.quant'].sudo().with_context(inventory_mode=True).create({
+                'product_id': product.id,
+                'location_id': location.id,
+                'inventory_quantity': float(body.get('quantity')),
+            })
+            quant.action_apply_inventory()
+            
+            return self._cors_response({'status': 'success', 'message': 'Adjustment applied'})
+        except Exception as e:
+            return self._cors_response({'status': 'error', 'message': str(e)})
+
+    @http.route('/api/inventory/warehouses', type='http', auth='public', methods=['GET', 'OPTIONS'], csrf=False)
+    def get_warehouses(self):
+        if request.httprequest.method == 'OPTIONS':
+            return self._cors_response({})
+        warehouses = request.env['stock.warehouse'].sudo().search([])
+        data = []
+        for wh in warehouses:
+            data.append({
+                'id': wh.id,
+                'name': wh.name,
+                'code': wh.code,
+                'address': wh.partner_id.contact_address,
+            })
+        return self._cors_response(data)
