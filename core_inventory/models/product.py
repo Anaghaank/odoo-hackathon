@@ -20,24 +20,38 @@ class CoreProduct(models.Model):
     uom_char = fields.Char(string='Unit of Measure', default='Units')
     
     stock_qty = fields.Float(string='Total Available Stock', compute='_compute_stock_qty', store=False)
-    is_low_stock = fields.Boolean(string='Is Low Stock', compute='_compute_stock_qty')
+    is_low_stock = fields.Boolean(string='Is Low Stock', compute='_compute_stock_qty', store=True)
     
     def _compute_stock_qty(self):
+        # Initializing default values
         for prod in self:
-            # Optimize: Sum all moves in one go (in a real system we'd use SQL/Quant table)
-            moves_in = self.env['core.stock.move'].search([
-                ('product_id', '=', prod.id),
-                ('state', '=', 'done'),
-                ('location_dest_id.usage', '=', 'internal')
-            ])
-            moves_out = self.env['core.stock.move'].search([
-                ('product_id', '=', prod.id),
-                ('state', '=', 'done'),
-                ('location_id.usage', '=', 'internal')
-            ])
-            qty_in = sum(moves_in.mapped('qty'))
-            qty_out = sum(moves_out.mapped('qty'))
-            prod.stock_qty = qty_in - qty_out
+            prod.stock_qty = 0.0
+            prod.is_low_stock = False
+            
+        # Get incoming moves per product
+        moves_in_data = self.env['core.stock.move'].read_group([
+            ('product_id', 'in', self.ids),
+            ('state', '=', 'done'),
+            ('location_dest_id.usage', '=', 'internal')
+        ], ['product_id', 'qty'], ['product_id'])
+        
+        # Get outgoing moves per product
+        moves_out_data = self.env['core.stock.move'].read_group([
+            ('product_id', 'in', self.ids),
+            ('state', '=', 'done'),
+            ('location_id.usage', '=', 'internal')
+        ], ['product_id', 'qty'], ['product_id'])
+        
+        # Mapping results
+        product_qtys = {prod_id: 0.0 for prod_id in self.ids}
+        for data in moves_in_data:
+            product_qtys[data['product_id'][0]] += data['qty']
+        for data in moves_out_data:
+            product_qtys[data['product_id'][0]] -= data['qty']
+            
+        # Updating records
+        for prod in self:
+            prod.stock_qty = product_qtys.get(prod.id, 0.0)
             prod.is_low_stock = prod.stock_qty <= prod.low_stock_threshold
 
     def action_view_stock_locations(self):
