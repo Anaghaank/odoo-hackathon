@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 const AuthForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    navigate('/2fa');
-  };
 
   return (
     <div className="flex flex-col w-full lg:w-1/2 p-8 lg:p-24 justify-center bg-white">
       <div className="max-w-md mx-auto w-full">
         <h2 className="text-4xl font-bold text-slate-900 mb-2 font-display">Welcome back</h2>
         <p className="text-slate-500 mb-10">
-          No account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline">Create an account</Link>
+          No account? <a href="#" className="text-blue-600 font-semibold hover:underline">Create an account</a>
         </p>
 
         {/* Form */}
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form className="space-y-6">
           <div>
             <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Email Address</label>
             <div className="relative">

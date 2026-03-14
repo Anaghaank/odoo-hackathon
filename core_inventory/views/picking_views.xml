@@ -123,52 +123,13 @@
         </field>
     </record>
 
-    <!-- Move History Search -->
-    <record id="view_core_stock_move_search" model="ir.ui.view">
-        <field name="name">core.stock.move.search</field>
-        <field name="model">core.stock.move</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="product_id"/>
-                <field name="location_id"/>
-                <field name="location_dest_id"/>
-                <filter string="Today" name="today" domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Product" name="group_by_product" context="{'group_by': 'product_id'}"/>
-                    <filter string="Destination Location" name="group_by_location" context="{'group_by': 'location_dest_id'}"/>
-                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
     <record id="action_core_move_history" model="ir.actions.act_window">
         <field name="name">Move History / Stock Ledger</field>
         <field name="res_model">core.stock.move</field>
         <field name="view_mode">list</field>
-        <field name="search_view_id" ref="view_core_stock_move_search"/>
         <field name="domain">[('state', '=', 'done')]</field>
     </record>
 
     <menuitem id="menu_core_move_history" name="Move History" parent="menu_core_inventory_operations" action="action_core_move_history" sequence="50"/>
-
-    <!-- Picking Search -->
-    <record id="view_core_picking_search" model="ir.ui.view">
-        <field name="name">core.picking.search</field>
-        <field name="model">core.picking</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="warehouse_id"/>
-                <filter string="In Progress" name="in_progress" domain="[('state', 'in', ['draft', 'waiting', 'ready'])]"/>
-                <filter string="Ready" name="ready" domain="[('state', '=', 'ready')]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Operation Type" name="group_by_type" context="{'group_by': 'picking_type'}"/>
-                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
 
 </odoo>

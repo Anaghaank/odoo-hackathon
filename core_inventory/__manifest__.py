@@ -16,14 +16,6 @@
         'views/product_views.xml',
         'views/picking_views.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'core_inventory/static/src/css/core_inventory.css',
-        ],
-    },
-    'demo': [
-        'data/demo_data.xml',
-    ],
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

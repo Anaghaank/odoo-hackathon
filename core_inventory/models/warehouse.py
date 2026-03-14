@@ -13,7 +13,7 @@ class CoreLocation(models.Model):
     _description = 'Inventory Location'
 
     name = fields.Char(string='Location Name', required=True)
-    complete_name = fields.Char(string='Full Location Name', compute='_compute_complete_name', store=True, recursive=True)
+    complete_name = fields.Char(string='Full Location Name', compute='_compute_complete_name', store=True)
     warehouse_id = fields.Many2one('core.warehouse', string='Warehouse', required=True, ondelete='cascade')
     parent_id = fields.Many2one('core.location', string='Parent Location', index=True, ondelete='cascade')
     
